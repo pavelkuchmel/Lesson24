@@ -16,19 +16,23 @@ public class BST <T extends Comparable<T>> implements BinaryTree<T> /*Binary Sea
     }
 
     private Node<T> insert(Node<T> root, T data){
-        if (isEmpty()) return new Node<T>(data);
-        else if (root.data.compareTo(data) < 0) root.left = insert(root.left, data);
-        else if (root.data.compareTo(data) > 0) root.right = insert(root.right, data);
+        if (root == null) return new Node<T>(data);
+        else if (root.data.compareTo(data) > 0) root.left = insert(root.left, data);
+        else if (root.data.compareTo(data) < 0) root.right = insert(root.right, data);
+        /*else if (data.compareTo(root.data) > 0) root.left = insert(root.left, data);
+        else if (data.compareTo(root.data) < 0) root.right = insert(root.right, data);*/
         else {};
         return root;
     }
 
     @Override
     public T findMin() {
-        Node<T> current = root;
+        Node<T> current = findMin(root);
+        /*Node<T> current = root;
         while (current.left != null){
             current = current.left;
         }
+        return current.data;*/
         return current.data;
     }
 
@@ -73,6 +77,30 @@ public class BST <T extends Comparable<T>> implements BinaryTree<T> /*Binary Sea
     @Override
     public boolean contains(T data) {
         return contains(root, data);
+    }
+
+    @Override
+    public void inorder() {
+        inorder(root);
+    }
+
+    @Override
+    public void preorder() {
+        preorder(root);
+    }
+
+    private void inorder(Node<T> root){
+        if (root == null) return;
+        inorder(root.left);
+        System.out.println(root.data);
+        inorder(root.right);
+    }
+
+    private void preorder(Node<T> root){
+        if (root == null) return;
+        System.out.println(root.data);
+        preorder(root.left);
+        preorder(root.right);
     }
 
     private boolean contains(Node<T> root, T data){

@@ -5,4 +5,6 @@ public interface BinaryTree<T> {
     T findMax();
     void delete(T data);
     boolean contains(T data);
+    void inorder();
+    void preorder();
 }
